@@ -1,0 +1,7 @@
+services:
+	-type web
+	name:love-score-api
+	env:python
+	plan:free
+	buildCommand:pip install -r requirements.tet
+	startCommand: gunicorn app:app
