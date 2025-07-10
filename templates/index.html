@@ -3,64 +3,228 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>JewelAlam AI: Love Score Predictor  💘</title>
+  <title>JewelAlam AI: Love Score Predictor</title>
   <style>
+    :root {
+      --primary-blue: #0052cc;
+      --secondary-blue: rgba(0, 82, 204, 0.2);
+      --text-dark: #1f1f1f;
+      --text-light: #ffffff;
+      --accent-gold: #d4af37;
+      --shadow: rgba(0, 0, 0, 0.3);
+      --input-bg: rgba(255, 255, 255, 0.9);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url('/static/images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       padding: 20px;
-      border-radius: 12px;
-      background-color: #fff0f5;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
     }
-    label, input {
-      display: block;
-      margin: 10px 0;
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
     }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      width: 100%;
+      padding: 24px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      font-size: 2.5em;
+      color: var(--text-light);
+      margin-bottom: 32px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 4px var(--shadow);
+      border-bottom: 2px solid var(--accent-gold);
+      padding-bottom: 8px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25em;
+      color: var(--text-light);
+      font-weight: 500;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-shadow: 1px 1px 3px var(--shadow);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--text-light);
+      border-radius: 6px;
+      font-size: 1em;
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text-dark);
+      background-color: var(--input-bg);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px var(--secondary-blue);
+    }
+
     button {
-      padding: 10px;
-      background: hotpink;
-      color: white;
+      padding: 14px;
+      background-color: var(--primary-blue);
+      color: var(--text-light);
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 1.1em;
+      font-weight: 600;
       cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      position: relative;
+      overflow: hidden;
     }
+
+    button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.4s ease;
+    }
+
+    button:hover::after {
+      left: 100%;
+    }
+
+    button:hover {
+      background-color: #003087;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      background-color: #002661;
+      transform: translateY(0);
+    }
+
     #result {
-      margin-top: 20px;
-      font-size: 1.2em;
-      color: darkred;
+      margin-top: 32px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5em;
+      font-weight: 600;
+      color: var(--text-light);
+      text-align: center;
+      letter-spacing: 0.5px;
+      text-shadow: 1px 1px 3px var(--shadow);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 16px;
+      }
+
+      h2 {
+        font-size: 2em;
+      }
+
+      label {
+        font-size: 1.1em;
+      }
+
+      input, button {
+        font-size: 0.95em;
+      }
+
+      #result {
+        font-size: 1.3em;
+      }
+    }
+
+    @media (max-width: 400px) {
+      h2 {
+        font-size: 1.75em;
+      }
+
+      label {
+        font-size: 1em;
+      }
+
+      input, button {
+        font-size: 0.875em;
+      }
     }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h2>❤️ JewelAlam AI: Love Score Predictor ❤️</h2>
+  <div class="container">
+    <h2>JewelAlam AI: Love Score Predictor</h2>
 
-  <form id="loveForm">
-    <label>Heart Emojis per Message:
-      <input type="number" id="heart_emojis_per_message" required>
-    </label>
-    <label>Average Response Time (seconds):
-      <input type="number" id="avg_response_time_sec" required>
-    </label>
-    <label>Text Length (characters):
-      <input type="number" id="text_length" required>
-    </label>
-    <label>Good Morning/Night Texts per Day:
-      <input type="number" id="good_morning_night_texts_per_day" required>
-    </label>
-    <label>Pet Name Usage Count:
-      <input type="number" id="pet_name_usage_count" required>
-    </label>
-    <button type="submit">Predict Love Score 💌</button>
-  </form>
+    <form id="loveForm">
+      <label>Heart Emojis per Message:
+        <input type="number" id="heart_emojis_per_message" required>
+      </label>
+      <label>Average Response Time (seconds):
+        <input type="number" id="avg_response_time_sec" required>
+      </label>
+      <label>Text Length (characters):
+        <input type="number" id="text_length" required>
+      </label>
+      <label>Good Morning/Night Texts per Day:
+        <input type="number" id="good_morning_night_texts_per_day" required>
+      </label>
+      <label>Pet Name Usage Count:
+        <input type="number" id="pet_name_usage_count" required>
+      </label>
+      <button type="submit">Predict Love Score</button>
+    </form>
 
-  <div id="result"></div>
+    <div id="result"></div>
+  </div>
 
   <script>
+    // Get the form element
     const form = document.getElementById('loveForm');
+    
+    // Add submit event listener
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
+      // Collect form data
       const data = {
         heart_emojis_per_message: parseInt(document.getElementById("heart_emojis_per_message").value),
         avg_response_time_sec: parseInt(document.getElementById("avg_response_time_sec").value),
@@ -69,15 +233,17 @@
         pet_name_usage_count: parseInt(document.getElementById("pet_name_usage_count").value)
       };
 
+      // Send POST request to /predict endpoint
       const response = await fetch('/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
 
+      // Display result
       const result = await response.json();
       document.getElementById('result').innerText = 
-        `💖 Predicted Love Score: ${result.predicted_love_score}`;
+        `Predicted Love Score: ${result.predicted_love_score}`;
     });
   </script>
 </body>
